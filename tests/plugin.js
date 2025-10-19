@@ -1,7 +1,5 @@
 'use strict'
 
-require('should')
-
 const path = require('path')
 const { ESLint } = require('eslint')
 const plugin = require('../lib')
@@ -39,12 +37,12 @@ async function execute(file, baseConfig) {
 }
 
 function assertLineColumn(messages, linecols) {
-  messages.length.should.be.exactly(linecols.length)
+  expect(messages.length).toBe(linecols.length)
   for (var i = 0; i < messages.length; i++) {
-    messages[i].line.should.be.exactly(linecols[i][0])
-    messages[i].column.should.be.exactly(linecols[i][1])
+    expect(messages[i].line).toBe(linecols[i][0])
+    expect(messages[i].column).toBe(linecols[i][1])
     if (linecols[i][2]) {
-      messages[i].ruleId.should.equal(linecols[i][2])
+      expect(messages[i].ruleId).toBe(linecols[i][2])
     }
   }
 }
