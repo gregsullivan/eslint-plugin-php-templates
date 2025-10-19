@@ -3,33 +3,39 @@
 require('should')
 
 const path = require('path')
-const CLIEngine = require('eslint').CLIEngine
+const { ESLint } = require('eslint')
 const plugin = require('../lib')
 
-function execute(file, baseConfig) {
+async function execute(file, baseConfig) {
   if (!baseConfig) baseConfig = {}
 
-  const cli = new CLIEngine({
-    extensions: ['php'],
-    baseConfig: {
-      rules: Object.assign(
-        {
-          'no-console': 'error',
-        },
-        baseConfig.rules
-      ),
-      globals: baseConfig.globals,
-      env: baseConfig.env,
-      parserOptions: baseConfig.parserOptions,
+  const config = [
+    {
+      files: ['**/*.php'],
+      plugins: {
+        'php-templates': plugin,
+        ...(baseConfig.plugins || {}),
+      },
+      processor: 'php-templates/strip-php',
+      rules: {
+        'no-console': 'error',
+        ...(baseConfig.rules || {}),
+      },
+      languageOptions: {
+        globals: baseConfig.globals || {},
+        parserOptions: baseConfig.parserOptions || {},
+      },
     },
-    plugins: baseConfig.plugins,
-    ignore: false,
-    useEslintrc: false,
-    fix: baseConfig.fix,
+  ]
+
+  const eslint = new ESLint({
+    overrideConfigFile: true,
+    overrideConfig: config,
+    fix: baseConfig.fix || false,
   })
-  cli.addPlugin('php-templates', plugin)
-  const results = cli.executeOnFiles([path.join(__dirname, 'fixtures', file)]).results[0]
-  return baseConfig.fix ? results : results && results.messages
+
+  const results = await eslint.lintFiles([path.join(__dirname, 'fixtures', file)])
+  return baseConfig.fix ? results[0] : results[0] && results[0].messages
 }
 
 function assertLineColumn(messages, linecols) {
@@ -43,16 +49,19 @@ function assertLineColumn(messages, linecols) {
   }
 }
 
-it('should work', () => {
-  const messages = execute('simple.js.php')
+it('should work', async () => {
+  const messages = await execute('simple.js.php')
   assertLineColumn(messages, [
     [4, 3],
     [6, 3],
   ])
 })
 
-it('should work with html', () => {
-  const messages = execute('html.php', { plugins: ['html'] })
+it('should work with html', async () => {
+  const html = require('eslint-plugin-html')
+  const messages = await execute('html.php', {
+    plugins: { html },
+  })
   assertLineColumn(messages, [
     [7, 7],
     [11, 7],
