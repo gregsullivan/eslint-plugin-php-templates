@@ -1,4 +1,4 @@
-# eslint-plugin-php-markup
+# eslint-plugin-php-templates
 
 A eslint plugin to process PHP markup.
 
@@ -11,12 +11,12 @@ This plugin just replace every php markup `<? ... ?>` to other text.
 ## Installation
 
 ```sh
-npm install --save-dev eslint-plugin-php-markup
+npm install --save-dev eslint-plugin-php-templates
 ```
 
 ## Usage
 
-Add `php-markup` to the `plugins` section of your `.eslintrc` configuration file.
+Add `php-templates` to the `plugins` section of your `.eslintrc` configuration file.
 
 BTW, it works like a charm together with [`eslint-plugin-html`](https://github.com/BenoitZugmeyer/eslint-plugin-html)!
 
@@ -25,7 +25,7 @@ BTW, it works like a charm together with [`eslint-plugin-html`](https://github.c
   // ...
   "plugins": [
     "html",
-    "php-markup"
+    "php-templates"
   ],
   "settings": {
     "php/php-extensions": [".php"],

@@ -1,7 +1,7 @@
 {
-  "name": "eslint-plugin-php-markup",
-  "version": "6.0.0",
-  "description": "A eslint plugin to process PHP markup",
+  "name": "eslint-plugin-php-templates",
+  "version": "1.0.0",
+  "description": "An ESLint plugin for processing PHP templates",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib"
@@ -11,23 +11,30 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tengattack/eslint-plugin-php-markup.git"
+    "url": "git+https://github.com/gregsullivan/eslint-plugin-php-templates.git"
   },
   "keywords": [
     "eslint",
-    "eslintplugin",
     "php"
   ],
-  "author": "tengattack",
+  "author": "gregsullivan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tengattack/eslint-plugin-php-markup/issues"
+    "url": "https://github.com/gregsullivan/eslint-plugin-php-templates/issues"
   },
-  "homepage": "https://github.com/tengattack/eslint-plugin-php-markup#readme",
+  "homepage": "https://github.com/gregsullivan/eslint-plugin-php-templates",
   "devDependencies": {
     "eslint": "^6.7.1",
     "eslint-plugin-html": "^6.0.0",
     "mocha": "^6.2.2",
     "should": "^13.2.3"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
   }
 }
