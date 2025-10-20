@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-php-templates",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.0",
   "description": "An ESLint plugin for processing PHP templates",
   "main": "lib/index.js",
   "directories": {

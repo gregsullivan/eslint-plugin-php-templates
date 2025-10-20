@@ -4,7 +4,7 @@ An ESLint processor that strips PHP tags from PHP templates files to enable lint
 
 ---
 
-This plugin is a fork of [`eslint-plugin-php-markup`](https://github.com/tengattack/eslint-plugin-php-markup), which doesn't support ESLint 9. All plugin settings have been removed. While `eslint-plugin-php-markup` was created to allow linting of JavaScript within PHP templates, my use case has been to implement `eslint-plugin-tailwindcss` via `@angular-eslint/template-parser`.
+This plugin is a fork of [`eslint-plugin-php-markup`](https://github.com/tengattack/eslint-plugin-php-markup), adding support for ESLint 9. All plugin settings have been removed. While `eslint-plugin-php-markup` was created to allow linting of JavaScript within PHP templates, my use case has been to implement `eslint-plugin-tailwindcss` via `@angular-eslint/template-parser`.
 
 ## Installation
 
