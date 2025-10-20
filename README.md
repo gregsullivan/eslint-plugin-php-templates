@@ -1,44 +1,46 @@
 # eslint-plugin-php-templates
 
-A eslint plugin to process PHP markup.
+An ESLint processor that strips PHP tags from PHP templates files to enable linting of embedded HTML code
 
-It can make us get rid of "Unexpected token <" errors in .php files.
+---
 
-## Principle
-
-This plugin just replace every php markup `<? ... ?>` to other text.
+This plugin is a fork of [`eslint-plugin-php-markup`](https://github.com/tengattack/eslint-plugin-php-markup), which doesn't support ESLint 9. All plugin settings have been removed. While `eslint-plugin-php-markup` was created to allow linting of JavaScript within PHP templates, my use case has been to support the use of `eslint-plugin-tailwindcss` via `@angular-eslint/template-parser`.
 
 ## Installation
 
-```sh
-npm install --save-dev eslint-plugin-php-templates
+```bash
+npm install eslint-plugin-php-templates --save-dev
 ```
 
 ## Usage
 
-Add `php-templates` to the `plugins` section of your `.eslintrc` configuration file.
+This is how I use this plugin:
 
-BTW, it works like a charm together with [`eslint-plugin-html`](https://github.com/BenoitZugmeyer/eslint-plugin-html)!
+```javascript
+import phpTemplates from 'eslint-plugin-php-templates';
+import tailwindcss from 'eslint-plugin-tailwindcss';
+import angularTemplateParser from '@angular-eslint/template-parser';
 
-```js
-{
-  // ...
-  "plugins": [
-    "html",
-    "php-templates"
-  ],
-  "settings": {
-    "php/php-extensions": [".php"],
-    "php/markup-replacement": {"php": "", "=": "0"},
-    "php/keep-eol": false,
-    "php/remove-whitespace": false,
-    "php/remove-empty-line": false,
-    "php/remove-php-lint": false
-  },
-  // ...
-}
+export default [
+    {
+        files: ['**/*.php'],
+        languageOptions: {
+            parser: phpTemplates.suppressParserErrors(angularTemplateParser),
+        },
+        plugins: {
+            'php-templates': phpTemplates,
+            tailwindcss,
+        },
+        processor: 'php-templates/strip-php',
+        rules: {
+            'tailwindcss/classnames-order': 'warn',
+            'tailwindcss/no-custom-classname': 'off',
+        },
+        settings: {
+			tailwindcss: {
+				config: '/full/path/to/tailwind.css',
+			},
+		},
+    },
+];
 ```
-
-License
-
-MIT
